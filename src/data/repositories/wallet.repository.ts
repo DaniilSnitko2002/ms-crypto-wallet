@@ -53,7 +53,7 @@ export class WalletRepository{
                 return `Updated transaction with id: ${checkTra.transaction_id}`
             }else{
                 transactionPojo = await this._walletRepository.create(transactionPojo)
-                Logger.info(`Created new transaction with id: ${checkTra.transaction_id}`)
+                Logger.info(`Created new transaction with id: ${transactionPojo.transaction_id}`)
                 return transactionPojo.transaction_id;
             }            
 
