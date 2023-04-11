@@ -4,7 +4,6 @@ import userRouter from "./routes/user.routes"
 import coinRouter from "./routes/coin.routes"
 import walletRouter from "./routes/wallet.routes"
 
-
 const app = express();
 app.use(express.json());
 

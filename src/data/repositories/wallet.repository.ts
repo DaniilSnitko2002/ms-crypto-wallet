@@ -1,3 +1,4 @@
+import Logger from "../../looger"
 import { Coin_connect } from "../config/coin.db.config"
 import { User_connect } from "../config/user.db.config"
 import { Wallet_connect } from "../config/wallet.db.config"
@@ -48,15 +49,17 @@ export class WalletRepository{
             if (!!checkTra){
                 const newQuantity: number = (+checkTra.quantity) + (+transactionPojo.quantity)
                 await checkTra.update({quantity: newQuantity})
+                Logger.info(`Updated transaction with id: ${checkTra.transaction_id}`)
                 return `Updated transaction with id: ${checkTra.transaction_id}`
             }else{
                 transactionPojo = await this._walletRepository.create(transactionPojo)
+                Logger.info(`Created new transaction with id: ${checkTra.transaction_id}`)
                 return transactionPojo.transaction_id;
             }            
 
         }catch(error){
-            console.log('Error while buying a cryptocoin')
-            console.error(error)
+            Logger.error('Error while buying a cryptocoin')
+            Logger.error(error)
             return "-1"
         }
     }
@@ -78,12 +81,12 @@ export class WalletRepository{
             await user_dbUser.update({deposit: newDeposit})
 
             await transaction_dbTra.update({quantity: newQuantity})
-
+            Logger.info(`Updated transaction with id: ${transaction_dbTra.transaction_id}`)
             return `Updated transaction with id: ${transaction_dbTra.transaction_id}`
             
         } catch (error) {
-            console.log('Error while selling a cryptocoin')
-            console.error(error)
+            Logger.error('Error while selling a cryptocoin')
+            Logger.error(error)
             return "-1"
         }
     }
@@ -97,8 +100,8 @@ export class WalletRepository{
                 return []
             }
         } catch (error) {
-            console.log('Error while getting user cryptocoins')
-            console.error(error)
+            Logger.error('Error while getting user cryptocoins')
+            Logger.error(error)
             return []
         }
 

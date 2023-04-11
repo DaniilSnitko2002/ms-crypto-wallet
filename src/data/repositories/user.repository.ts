@@ -1,5 +1,6 @@
 import { UserPOJO } from "../models/user.model";
 import { User_connect } from "../config/user.db.config";
+import Logger from "../../looger";
 
 export class UserRepository{
     _database: any = {}
@@ -14,15 +15,14 @@ export class UserRepository{
         try {
             const data = await this._userRepository.findOne({where: {email: newUser.email}})
             if(!!data){
-                console.log(data)
                 throw 'User already exists'
             }
 
             newUser = await this._userRepository.create(newUser)
             return newUser.user_id;
         } catch (error) {
-            console.log('Error generating the user')
-            console.error(error)
+            Logger.error('Error generating the user')
+            Logger.error(error)
             return "-1"
         }
     } 
@@ -38,7 +38,7 @@ export class UserRepository{
             }
 
         } catch (error) {
-            console.log(error)
+            Logger.error(error)
             return undefined
         }
     }
@@ -54,8 +54,7 @@ export class UserRepository{
             }
             
         } catch (error) {
-            
-            console.log(error)
+            Logger.error(error)
             return undefined
         }
     }

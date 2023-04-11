@@ -1,3 +1,4 @@
+import Logger from "../../looger";
 import { Coin_connect } from "../config/coin.db.config";
 import { CoinPOJO } from "../models/coin.model";
 
@@ -18,8 +19,8 @@ export class CoinRepository{
             return allCoins
             
         }catch(error){
-            console.log('Error trying to get the cryptocoins')
-            console.error(error)
+            Logger.error('Error trying to get the cryptocoins')
+            Logger.error(error)
             return []
         }
     }
@@ -35,8 +36,8 @@ export class CoinRepository{
             }
 
         } catch (error) {
-            console.log('Error trying to get the cryptocoin')
-            console.error(error)
+            Logger.error('Error trying to get the cryptocoin')
+            Logger.error(error)
             return undefined
         }
     }

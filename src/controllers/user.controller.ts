@@ -1,3 +1,4 @@
+import Logger from "../looger";
 import { UserService } from "../services/user.service";
 import { newUserDTO } from "../types";
 
@@ -13,7 +14,7 @@ export const UserController = {
                 res.json(resUserId)
             })
         } catch (err) {
-            console.log(err)
+            Logger.error(err)
             res.sendStatus(500)
         }
     },
@@ -32,7 +33,7 @@ export const UserController = {
                 
             })
         } catch (err) {
-            console.log(err)
+            Logger.error(err)
             res.sendStatus(500)
         }
     },
@@ -51,7 +52,7 @@ export const UserController = {
                 
             })
         } catch (err) {
-            console.log(err)
+            Logger.error(err)
             res.sendStatus(500)
         }
     }

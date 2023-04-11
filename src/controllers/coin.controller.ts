@@ -1,3 +1,4 @@
+import Logger from "../looger";
 import { CoinService } from "../services/coin.service";
 
 const coinService: CoinService = new CoinService()
@@ -11,11 +12,11 @@ export const CoinController = {
                 res.json(resCoins)
             })
             .catch(err => {
-                console.error(err)
+                Logger.error(err)
                 res.sendStatus(500)
             })
         } catch (err) {
-            console.log(err)
+            Logger.error(err)
             res.sendStatus(500)
         }
     },
@@ -34,7 +35,7 @@ export const CoinController = {
             })            
 
         } catch (error) {
-            console.log(error)
+            Logger.error(error)
             res.sendStatus(500)
         }
     }

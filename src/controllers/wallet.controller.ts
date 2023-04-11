@@ -1,3 +1,4 @@
+import Logger from "../looger"
 import { WalletService } from "../services/wallet.service"
 import { newWalletDTO } from "../types"
 
@@ -13,7 +14,7 @@ export const WalletController = {
                 res.json(coinId)
             })
         } catch (err) {
-            console.log(err)
+            Logger.error(err)
             res.sendStatus(500)
         }
     },
@@ -25,7 +26,7 @@ export const WalletController = {
                 res.json(coinId)
             })
         } catch (err) {
-            console.log(err)
+            Logger.error(err)
             res.sendStatus(500)
         }
     },
@@ -33,14 +34,12 @@ export const WalletController = {
     getUserCoins: (req: any, res: any) => {
         try {
             const userId = req.body.id
-            console.log('el id del usuario')
-            console.log(userId)
             walletService.getUserCoins(userId)
             .then(userCoins => {
                 res.json(userCoins)
             })
         } catch (err) {
-            console.log(err)
+            Logger.error(err)
             res.sendStatus(500)
         }
     }
