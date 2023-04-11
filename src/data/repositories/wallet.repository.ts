@@ -32,12 +32,14 @@ export class WalletRepository{
             const coin_dbCoin = await this._coinRepository.findOne({where: {crypto_id: transactionPojo.crypto_id}})
             const newStock: number = (+coin_dbCoin.stock) - (+transactionPojo.quantity)
             if(newStock < 0){
+                Logger.error("Exceeding the stock number")
                 return "-1"
             }
 
             const user_dbUser = await this._userRepository.findOne({where: {user_id: transactionPojo.user_id}})
             const newDeposit: number = ((+user_dbUser.deposit) - ((+transactionPojo.quantity) * (+coin_dbCoin.value)))
             if(newDeposit < 0){
+                Logger.error("Insufficient money")
                 return "-1"
             }
             
