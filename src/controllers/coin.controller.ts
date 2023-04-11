@@ -22,7 +22,7 @@ export const CoinController = {
 
     getCoinById: (req: any, res: any) => {
         try {
-            const COIN_ID: string = req.params.id
+            const COIN_ID: string = req.body.id
 
             coinService.getCoinById(COIN_ID)
             .then(resCoin => {
