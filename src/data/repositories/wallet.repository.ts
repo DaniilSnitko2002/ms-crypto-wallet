@@ -33,14 +33,14 @@ export class WalletRepository{
             const newStock: number = (+coin_dbCoin.stock) - (+transactionPojo.quantity)
             if(newStock < 0){
                 Logger.error("Exceeding the stock number")
-                return "-1"
+                throw "-1"
             }
 
             const user_dbUser = await this._userRepository.findOne({where: {user_id: transactionPojo.user_id}})
             const newDeposit: number = ((+user_dbUser.deposit) - ((+transactionPojo.quantity) * (+coin_dbCoin.value)))
             if(newDeposit < 0){
                 Logger.error("Insufficient money")
-                return "-1"
+                throw "-1"
             }
             
             await coin_dbCoin.update({stock: newStock})
@@ -60,7 +60,7 @@ export class WalletRepository{
             }            
 
         }catch(error){
-            Logger.error('Error while buying a cryptocoin')
+            Logger.error(`User: ${transactionPojo.user_id}. Error while buying a cryptocoin`)
             Logger.error(error)
             return "-1"
         }
@@ -71,7 +71,8 @@ export class WalletRepository{
             const transaction_dbTra = await this._walletRepository.findOne({where: {user_id: transactionPojo.user_id, crypto_id: transactionPojo.crypto_id}})
             const newQuantity : number = (+transaction_dbTra.quantity) - transactionPojo.quantity
             if (newQuantity < 0){
-                return "-1"
+                Logger.error("Exceeding the stock of user coin")
+                throw "-1"
             }
 
             const coin_dbCoin = await this._coinRepository.findOne({where: {crypto_id: transactionPojo.crypto_id}})
@@ -87,7 +88,7 @@ export class WalletRepository{
             return `Updated transaction with id: ${transaction_dbTra.transaction_id}`
             
         } catch (error) {
-            Logger.error('Error while selling a cryptocoin')
+            Logger.error(`User: ${transactionPojo.user_id}. Error while selling a cryptocoin`)
             Logger.error(error)
             return "-1"
         }
