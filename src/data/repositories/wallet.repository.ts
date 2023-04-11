@@ -90,7 +90,7 @@ export class WalletRepository{
 
     async getUserCoins(userId: string): Promise<WalletPOJO[]>{
         try {
-            const wallet_dbWallet = await this._walletRepository.findAll({user_id: userId})
+            const wallet_dbWallet = await this._walletRepository.findAll({where : {user_id: userId}})
             if(!!wallet_dbWallet){
                 return wallet_dbWallet
             }else{

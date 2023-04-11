@@ -32,7 +32,9 @@ export const WalletController = {
 
     getUserCoins: (req: any, res: any) => {
         try {
-            const userId = req.body
+            const userId = req.body.id
+            console.log('el id del usuario')
+            console.log(userId)
             walletService.getUserCoins(userId)
             .then(userCoins => {
                 res.json(userCoins)
